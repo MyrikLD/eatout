@@ -1,5 +1,5 @@
 Parser for `eatout.ru` site 
- ##USAGE:
+ ## Usage
  Scan all cities:
  
     scrapy crawl eatout
