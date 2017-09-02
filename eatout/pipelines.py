@@ -1,11 +1,21 @@
 # -*- coding: utf-8 -*-
 import json
-
-from os import path
+import os
 
 class EatoutPipeline(object):
 	def process_item(self, item, spider):
-		with open('output/'+item['name']+'.json', 'w') as f:
-			dump = json.dumps(dict(item), ensure_ascii=False)
+		dictitem = dict(item)
+		city = dictitem.pop('city')
+
+		path = 'output/'+city+'/'+item['name']+'.json'
+		directory = os.path.dirname(path)
+
+		dump = json.dumps(dictitem, ensure_ascii=False)
+
+		if not os.path.exists(directory):
+			os.makedirs(directory)
+
+		with open(path, 'w') as f:
 			f.write(dump)
+
 		return item
